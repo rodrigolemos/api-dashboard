@@ -18,15 +18,3 @@ export const Container = styled.div`
     border: 1px solid #DDD;
   }
 `;
-
-export const Form = styled.form`
-  grid-area: form;
-`;
-
-export const Nav = styled.nav`
-  grid-area: nav;
-`;
-
-export const Main = styled.main`
-  grid-area: main;
-`;

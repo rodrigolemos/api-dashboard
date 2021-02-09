@@ -1,11 +1,14 @@
-import { Container, Form, Nav, Main } from './styles';
+import { Container } from './styles';
+import Form from '../form';
+import Nav from '../nav';
+import Main from '../main';
 
-const Layout = () => {
+const Layout: React.FC = (): React.ReactElement => {
   return (
     <Container>
-      <Form>form</Form>
-      <Nav>nav</Nav>
-      <Main>main</Main>
+      <Form />
+      <Nav />
+      <Main />
     </Container>
   )
 }
