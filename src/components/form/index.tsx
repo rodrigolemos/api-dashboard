@@ -27,13 +27,40 @@ const Form: React.FC = (): React.ReactElement => {
     <FormWrapper>
       <h1>APIs IntergrALL</h1>
       <form>
-        <div>
-          <label htmlFor="api-name">Selecione a API:</label>
-          <Select
-            id="api-name"
-            options={apis}
-          />
+
+        <div className="row">
+
+          <div className="col-full">
+            <label htmlFor="name">Selecione a API</label>
+            <Select
+              id="name"
+              options={apis}
+              required
+            />
+          </div>
+
         </div>
+
+        <div className="row">
+
+          <div className="col-half">
+            <label htmlFor="date">Data</label>
+            <input type="date" id="date" defaultValue={new Date().toISOString().split('T')[0]} />
+          </div>
+
+          <div className="col-half">
+            <div className="col-half">
+              <label htmlFor="time-begin">Hora início</label>
+              <input type="time" id="time-begin" defaultValue={'00:00'} />
+            </div>
+            <div className="col-half">
+              <label htmlFor="time-end">Hora fim</label>
+              <input type="time" id="time-end" defaultValue={'23:59'} />
+            </div>
+          </div>
+
+        </div>
+
       </form>
     </FormWrapper>
   )
