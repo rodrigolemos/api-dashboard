@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Select from 'react-select';
-
+import { additionalFilterDefaultOptions } from '../../utils/additionalFilterOptions'
 import { FormWrapper } from './styles';
 
 interface ISelect {
@@ -10,14 +10,10 @@ interface ISelect {
 
 const Form: React.FC = (): React.ReactElement => {
   const [apis, setApis] = useState<ISelect[]>([]);
-  const [additionalFilterOptions, setAdditionalFilterOptions] = useState<ISelect[]>([
-    { value: 'header_req', label: 'Header de requisição' },
-    { value: 'body_req', label: 'Body de requisição' },
-    { value: 'header_res', label: 'Header de resposta' },
-    { value: 'body_res', label: 'Body de resposta' },
-    { value: 'code_res', label: 'Código de resposta' },
-  ]);
+  const [additionalFilterOptions, setAdditionalFilterOptions] = useState<ISelect[]>(additionalFilterDefaultOptions);
   const [additionalFilters, setAdditionalFilters] = useState<ISelect[]>([]);
+
+  const additionalRef = useRef<HTMLInputElement>(null);
 
   const handleAddAdditionalFilter = (selectedOption: any) => {
     setAdditionalFilters([...additionalFilters, selectedOption])
@@ -94,7 +90,13 @@ const Form: React.FC = (): React.ReactElement => {
             <ul>
               {additionalFilters.map((additionalFilter: ISelect) => (
                 <li key={additionalFilter.value}>
-                  <input type="text" required className="additional" placeholder={additionalFilter.label} />
+                  <input
+                    required
+                    type="text"
+                    ref={additionalRef}
+                    className="additional"
+                    placeholder={additionalFilter.label}
+                  />
                   <button className="secondary" onClick={() => handleRemoveAdditionalFilter(additionalFilter)}>Remover</button>
                 </li>
               ))}

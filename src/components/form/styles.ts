@@ -15,11 +15,12 @@ export const FormWrapper = styled.aside`
   }
 
   input {
-    padding: 9px;
+    padding: 10px;
     font-size: 14px;
     border: 1px solid #CCC;
     border-radius: 5px;
     outline: none;
+    box-sizing: border-box;
     transition: border .1s ease-in-out;
 
     &:focus, &:active {
@@ -27,7 +28,7 @@ export const FormWrapper = styled.aside`
     }
 
     &.additional {
-      width: 75%;
+      width: 80%;
     }
   }
 
@@ -51,7 +52,6 @@ export const FormWrapper = styled.aside`
   button.secondary {
     border: none;
     padding: 8px 15px;
-    margin: 0 10px;
     border-radius: 5px;
     background-color: #E2E8F0;
     color: #2D3748;
@@ -61,7 +61,7 @@ export const FormWrapper = styled.aside`
     transition: all .2s ease-in-out;
 
     &:hover {
-      box-shadow: 0px 5px 5px #CCC;
+      box-shadow: 0px 3px 3px #CCC;
     }
   }
 
@@ -77,6 +77,8 @@ export const FormWrapper = styled.aside`
       li {
         list-style: none;
         margin: 10px 0px;
+        display: flex;
+        justify-content: space-between;
       }
     }
 
