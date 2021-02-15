@@ -61,7 +61,7 @@ export const FormWrapper = styled.aside`
     transition: all .2s ease-in-out;
 
     &:hover {
-      box-shadow: 0px 3px 3px #CCC;
+      background-color: #CBD5E0;
     }
   }
 

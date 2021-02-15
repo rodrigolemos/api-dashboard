@@ -1,19 +1,20 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Select from 'react-select';
+import ReactLoading from 'react-loading';
+import { format } from 'date-fns';
+import { IAPI, IRequest, ISelect } from './interfaces';
+import { api } from '../../services/api';
 import { additionalFilterDefaultOptions } from '../../utils/additionalFilterOptions'
 import { FormWrapper } from './styles';
-
-interface ISelect {
-  value: number | string;
-  label: string;
-}
 
 const Form: React.FC = (): React.ReactElement => {
   const [apis, setApis] = useState<ISelect[]>([]);
   const [additionalFilterOptions, setAdditionalFilterOptions] = useState<ISelect[]>(additionalFilterDefaultOptions);
   const [additionalFilters, setAdditionalFilters] = useState<ISelect[]>([]);
-
-  const additionalRef = useRef<HTMLInputElement>(null);
+  const [requestStatus, setRequestStatus] = useState<IRequest>({
+    isLoading: false,
+    isError: false
+  });
 
   const handleAddAdditionalFilter = (selectedOption: any) => {
     setAdditionalFilters([...additionalFilters, selectedOption])
@@ -29,12 +30,48 @@ const Form: React.FC = (): React.ReactElement => {
     )
   }
 
-  const fetchApis = useCallback((): void => {
-    setApis([
-      { value: 1, label: 'Primeira API' },
-      { value: 2, label: 'Segunda API' },
-      { value: 3, label: 'Terceira API' }
-    ])
+  const fetchApis = useCallback(async (): Promise<void> => {
+
+    setRequestStatus({
+      isLoading: true,
+      isError: false
+    })
+
+    try {
+
+      const response = await api.get<IAPI[]>('/tables', {
+        params: {
+          data_cri: format(new Date(), 'yyyy-MM-dd')
+        }
+      })
+
+      if (response.status !== 200)
+        throw new Error('Não foi possível consultar as tabelas')
+
+      const formattedAPIs = response.data.map((responseAPI: IAPI) => {
+        const { api, name } = responseAPI;
+        return {
+          value: name,
+          label: api
+        }
+      })
+
+      setApis(formattedAPIs)
+
+      setRequestStatus({
+        isLoading: false,
+        isError: false
+      })
+
+    } catch (error) {
+
+      setRequestStatus({
+        isLoading: false,
+        isError: error.message
+      })
+
+    }
+
   }, [])
 
   useEffect(() => {
@@ -46,14 +83,26 @@ const Form: React.FC = (): React.ReactElement => {
       <h1>APIs IntergrALL</h1>
       <form>
 
+        {requestStatus.isError && (
+          <div className="row">
+            <div className="col-full">
+              <h2>{requestStatus.isError}</h2>
+            </div>
+          </div>
+        )}
+
         <div className="row">
           <div className="col-full">
             <label htmlFor="name">Serviço</label>
-            <Select
-              id="name"
-              options={apis}
-              required
-            />
+            {!requestStatus.isLoading ? (
+              <Select
+                id="name"
+                options={apis}
+                required
+              />
+            ) : (
+              <ReactLoading type="bubbles" color="#2684FF" height="42px" width="47px" />
+            )}
           </div>
         </div>
 
@@ -93,7 +142,6 @@ const Form: React.FC = (): React.ReactElement => {
                   <input
                     required
                     type="text"
-                    ref={additionalRef}
                     className="additional"
                     placeholder={additionalFilter.label}
                   />
