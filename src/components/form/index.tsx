@@ -58,11 +58,14 @@ const Form = (): React.ReactElement => {
 
   const handleFormDate = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const element = e.currentTarget;
-    setFormFilters(prevState => {
-      prevState.date = new Date(`${element.value} 01:00`)
-      return prevState
-    })
-    fetchApis()
+    const validDate = new Date(element.value).getTime();
+    if (!isNaN(validDate) && validDate > 0) {
+      setFormFilters(prevState => {
+        prevState.date = new Date(`${element.value} 01:00`)
+        return prevState
+      })
+      fetchApis()
+    }
   }
 
   const handleFormTime = (e: React.ChangeEvent<HTMLInputElement>): void => {
