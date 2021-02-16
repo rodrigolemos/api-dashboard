@@ -9,7 +9,7 @@ import { FormWrapper } from './styles';
 
 import { useAPIData } from '../../hooks/logs'
 
-const Form: React.FC = (): React.ReactElement => {
+const Form = (): React.ReactElement => {
   const [apis, setApis] = useState<ISelect[]>([]);
   const [additionalFilterOptions, setAdditionalFilterOptions] = useState<ISelect[]>(additionalFilterDefaultOptions);
   const [additionalFilters, setAdditionalFilters] = useState<ISelect[]>([]);
@@ -108,8 +108,6 @@ const Form: React.FC = (): React.ReactElement => {
   }
 
   const fetchApis = useCallback(async (): Promise<void> => {
-
-    console.log('consulta...')
 
     setRequestStatus({
       isLoading: true,

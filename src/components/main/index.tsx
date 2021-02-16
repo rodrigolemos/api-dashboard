@@ -1,6 +1,6 @@
 import { MainWrapper } from './styles';
 
-const Main: React.FC = (): React.ReactElement => {
+const Main = (): React.ReactElement => {
   return (
     <MainWrapper>main</MainWrapper>
   )

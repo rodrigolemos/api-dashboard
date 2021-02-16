@@ -3,7 +3,7 @@ import Form from '../form';
 import Nav from '../nav';
 import Main from '../main';
 
-const Layout: React.FC = (): React.ReactElement => {
+const Layout = (): React.ReactElement => {
   return (
     <Container>
       <Form />

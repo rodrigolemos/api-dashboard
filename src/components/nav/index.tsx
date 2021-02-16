@@ -1,6 +1,6 @@
 import { NavWrapper } from './styles';
 
-const Nav: React.FC = (): React.ReactElement => {
+const Nav = (): React.ReactElement => {
   return (
     <NavWrapper>nav</NavWrapper>
   )
