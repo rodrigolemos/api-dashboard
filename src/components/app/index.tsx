@@ -1,9 +1,12 @@
 import Layout from '../layout';
+import { APIDataProvider } from '../../hooks/logs'
 
 function App() {
   return (
     <div className="App">
-      <Layout />
+      <APIDataProvider>
+        <Layout />
+      </APIDataProvider>
     </div>
   );
 }

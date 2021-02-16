@@ -1,4 +1,15 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const showFromLeft = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`
 
 export const FormWrapper = styled.aside`
   grid-area: form;
@@ -7,6 +18,15 @@ export const FormWrapper = styled.aside`
   h1 {
     font-size: 34px;
     font-weight: normal;
+  }
+
+  h2.error {
+    font-size: 22px;
+    font-weight: normal;
+    padding: 10px 20px;
+    color: red;
+    border: 1px solid red;
+    border-radius: 5px;
   }
 
   label {
@@ -79,6 +99,10 @@ export const FormWrapper = styled.aside`
         margin: 10px 0px;
         display: flex;
         justify-content: space-between;
+
+        &:last-child {
+          animation: ${showFromLeft} .3s ease-in-out;
+        }
       }
     }
 

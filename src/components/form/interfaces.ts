@@ -16,3 +16,15 @@ export interface IRequest {
   isLoading: boolean;
   isError: boolean;
 }
+
+interface IAdditional {
+  field: string;
+  value: string;
+}
+export interface IForm {
+  api: string;
+  date: Date;
+  startTime: string;
+  finishTime: string;
+  additionalFilters: IAdditional[];
+}
