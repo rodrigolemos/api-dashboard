@@ -1,15 +1,5 @@
-import styled, { keyframes } from 'styled-components';
-
-const showFromLeft = keyframes`
-  from {
-    opacity: 0;
-    transform: translateX(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-`
+import styled from 'styled-components';
+import { showFromLeft } from '../../styles/animations';
 
 export const FormWrapper = styled.aside`
   grid-area: form;

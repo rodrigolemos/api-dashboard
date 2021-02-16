@@ -6,7 +6,6 @@ import { IAPI, IForm, IRequest, ISelect } from './interfaces';
 import { api } from '../../services/api';
 import { additionalFilterDefaultOptions } from '../../utils/additionalFilterOptions';
 import { FormWrapper } from './styles';
-
 import { useAPIData } from '../../hooks/logs'
 
 const Form = (): React.ReactElement => {
@@ -25,7 +24,7 @@ const Form = (): React.ReactElement => {
     isError: false
   });
 
-  const { fetchAPIData } = useAPIData();
+  const { fetchAPIData, clearQuery } = useAPIData();
 
   const handleAddAdditionalFilter = (selectedOption: any): void => {
     setAdditionalFilters([...additionalFilters, selectedOption]);
@@ -58,41 +57,44 @@ const Form = (): React.ReactElement => {
   }
 
   const handleFormDate = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const element = e.currentTarget;
     setFormFilters(prevState => {
-      prevState.date = new Date(e.currentTarget.value)
+      prevState.date = new Date(`${element.value} 01:00`)
       return prevState
     })
     fetchApis()
   }
 
   const handleFormTime = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const element = e.currentTarget;
     setFormFilters(prevState => {
-      if (e.currentTarget.id === 'startTime') {
-        prevState.startTime = e.currentTarget.value
+      if (element.id === 'startTime') {
+        prevState.startTime = element.value
       } else {
-        prevState.finishTime = e.currentTarget.value
+        prevState.finishTime = element.value
       }
       return prevState
     })
   }
 
   const handleFormAdditional = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const element = e.currentTarget;
     setFormFilters(prevState => {
 
-      // add new element to array
-      // update element if it already exists
-      let element = prevState.additionalFilters.find(additional => additional.field === e.currentTarget.id);
+      // add new item to array
+      // update item if it already exists
+      let item = prevState.additionalFilters.find(additional => additional.field === element.id);
 
-      if (!element) {
+      if (!item) {
         prevState.additionalFilters.push({
-          field: e.currentTarget.id,
-          value: e.currentTarget.value
+          field: element.id,
+          value: element.value
         })
       } else {
-        element.value = e.currentTarget.value
+        item.value = element.value
         prevState.additionalFilters.map(additional => {
-          if (additional.field === element?.field) {
-            additional = element
+          if (additional.field === item?.field) {
+            additional = item
           }
           return additional
         })
@@ -126,10 +128,10 @@ const Form = (): React.ReactElement => {
         throw new Error('Não foi possível consultar as tabelas');
 
       const formattedAPIs = response.data.map((responseAPI: IAPI) => {
-        const { api, name } = responseAPI;
+        const { api, rota, name } = responseAPI;
         return {
           value: name,
-          label: api
+          label: `${api} (${rota})`
         }
       });
 
@@ -158,7 +160,7 @@ const Form = (): React.ReactElement => {
   return (
     <FormWrapper>
       <h1>APIs IntergrALL</h1>
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={handleFormSubmit} onChange={clearQuery}>
 
         {requestStatus.isError && (
           <div className="row">
