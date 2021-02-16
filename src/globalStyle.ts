@@ -14,5 +14,6 @@ export default createGlobalStyle`
     --success: #10B981;
     --warning: #FBBF24;
     --danger: #EF4444;
+    --info: #3B82F6;
   }
 `

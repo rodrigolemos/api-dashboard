@@ -1,7 +1,7 @@
 import { useAPIData } from '../../hooks/logs';
 import { BsSearch } from 'react-icons/bs';
 import { formatDate } from '../../utils/formatDate';
-import { StatusBadge } from './styles';
+import { DurationBadge, RouteBadge, StatusBadge } from './styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import {
   Table as MaterialTable,
@@ -44,10 +44,14 @@ export default function Table() {
               <TableCell component="th" scope="row">
                 {formatDate(api.data_hora)}
               </TableCell>
-              <TableCell>{api.rota}</TableCell>
+              <TableCell>
+                <RouteBadge>{api.rota}</RouteBadge>
+              </TableCell>
               <TableCell>{api.metodo}</TableCell>
               <TableCell align="center">{api.verbo}</TableCell>
-              <TableCell align="center">{api.tempo_exec}</TableCell>
+              <TableCell align="center">
+                <DurationBadge duration={api.tempo_exec}>{api.tempo_exec}</DurationBadge>
+              </TableCell>
               <TableCell align="center">
                 <StatusBadge status={api.status}>{api.status}</StatusBadge>
               </TableCell>

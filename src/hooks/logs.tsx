@@ -1,4 +1,4 @@
-import { useState, createContext, useContext } from 'react';
+import { useCallback, useState, createContext, useContext } from 'react';
 import { api } from '../services/api';
 
 import { IForm } from '../components/form/interfaces';
@@ -39,7 +39,7 @@ const APIDataProvider = ({ children }: IAPIDataProvider) => {
     isError: false
   });
 
-  const fetchAPIData = async (formFilters: IForm): Promise<void> => {
+  const fetchAPIData = useCallback(async (formFilters: IForm): Promise<void> => {
 
     setRequestStatus({
       isLoading: true,
@@ -69,7 +69,7 @@ const APIDataProvider = ({ children }: IAPIDataProvider) => {
       });
 
     }
-  }
+  }, []);
 
   const clearQuery = (): void => {
     setAPIData(undefined);

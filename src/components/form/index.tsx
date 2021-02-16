@@ -7,9 +7,11 @@ import { api } from '../../services/api';
 import { additionalFilterDefaultOptions } from '../../utils/additionalFilterOptions';
 import { FormWrapper } from './styles';
 import { useAPIData } from '../../hooks/logs'
+import { useAPIInfo } from '../../hooks/api-info'
 
 const Form = (): React.ReactElement => {
-  const [apis, setApis] = useState<ISelect[]>([]);
+  const [apisOptions, setApisOptions] = useState<ISelect[]>([]);
+  const [apis, setApis] = useState<IAPI[]>([]);
   const [additionalFilterOptions, setAdditionalFilterOptions] = useState<ISelect[]>(additionalFilterDefaultOptions);
   const [additionalFilters, setAdditionalFilters] = useState<ISelect[]>([]);
   const [formFilters, setFormFilters] = useState<IForm>({
@@ -25,6 +27,7 @@ const Form = (): React.ReactElement => {
   });
 
   const { fetchAPIData, clearQuery } = useAPIData();
+  const { setAPIInfo } = useAPIInfo();
 
   const handleAddAdditionalFilter = (selectedOption: any): void => {
     setAdditionalFilters([...additionalFilters, selectedOption]);
@@ -54,6 +57,7 @@ const Form = (): React.ReactElement => {
       prevState.api = selectedOption.value
       return prevState
     })
+    setAPIInfo(apis.filter(api => api.name === selectedOption.value)[0]);
   }
 
   const handleFormDate = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -142,7 +146,9 @@ const Form = (): React.ReactElement => {
         }
       });
 
-      setApis(formattedAPIs);
+      setApisOptions(formattedAPIs);
+
+      setApis(response.data);
 
       setRequestStatus({
         isLoading: false,
@@ -183,7 +189,7 @@ const Form = (): React.ReactElement => {
             {!requestStatus.isLoading ? (
               <Select
                 id="api"
-                options={apis}
+                options={apisOptions}
                 onChange={handleFormAPI}
                 required
               />
