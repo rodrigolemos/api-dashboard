@@ -7,7 +7,7 @@ export default createGlobalStyle`
   }
 
   * {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Roboto', Tahoma, Geneva, Verdana, sans-serif;
   }
 
   :root {
@@ -15,5 +15,9 @@ export default createGlobalStyle`
     --warning: #FBBF24;
     --danger: #EF4444;
     --info: #3B82F6;
+
+    --gray: #D1D5DB;
+    --gray-1: #9CA3AF;
+    --gray-2: #374151;
   }
 `

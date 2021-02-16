@@ -10,6 +10,7 @@ export interface IAPI {
   login_cri: string;
   name: string;
   group: string;
+  responsavel: string;
 }
 
 export interface IRequest {

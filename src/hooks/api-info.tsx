@@ -12,6 +12,7 @@ export interface IAPI {
   login_cri: string;
   name: string;
   group: string;
+  responsavel: string;
 }
 
 interface IAPIInfo {
