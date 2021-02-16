@@ -61,7 +61,11 @@ const Form = (): React.ReactElement => {
     const validDate = new Date(element.value).getTime();
     if (!isNaN(validDate) && validDate > 0) {
       setFormFilters(prevState => {
-        prevState.date = new Date(`${element.value} 01:00`)
+        if (new Date(element.value) > new Date()) {
+          prevState.date = new Date()
+        } else {
+          prevState.date = new Date(`${element.value} 01:00`)
+        }
         return prevState
       })
       fetchApis()

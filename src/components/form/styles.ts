@@ -45,18 +45,23 @@ export const FormWrapper = styled.aside`
 
   button.primary {
     border: none;
-    padding: 12px 20px;
+    padding: 10px 18px;
     border-radius: 5px;
     background-color: #2684FF;
     color: #FFF;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
+    outline: none;
     cursor: pointer;
     transition: all .2s ease-in-out;
 
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0px 5px 5px #CCC;
+    }
+
+    &:active {
+      transform: translateY(2px);
     }
   }
 
@@ -68,6 +73,7 @@ export const FormWrapper = styled.aside`
     color: #2D3748;
     font-size: 16px;
     font-weight: bold;
+    outline: none;
     cursor: pointer;
     transition: all .2s ease-in-out;
 
