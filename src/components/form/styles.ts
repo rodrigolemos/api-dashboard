@@ -4,6 +4,7 @@ import { showFromLeft } from '../../styles/animations';
 export const FormWrapper = styled.aside`
   grid-area: form;
   flex-direction: column;
+  box-shadow: 0px 5px 15px #DDD;
 
   h1 {
     font-size: 34px;
