@@ -25,11 +25,6 @@ export const Card = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    span {
-      font-size: 15px;
-      font-weight: normal;
-    }
   }
 
   .half-column {

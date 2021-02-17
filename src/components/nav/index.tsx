@@ -39,15 +39,15 @@ const Nav = (): React.ReactElement => {
                 <div className="content">
                   <div className="card-row">
                     <label>Sucesso (qtd):</label>
-                    <span>{APIResult?.success.qtd}</span>
+                    <span className="status success">{APIResult?.success.qtd}</span>
                   </div>
                   <div className="card-row">
                     <label>Erros cliente (qtd):</label>
-                    <span>{APIResult?.clientError.qtd}</span>
+                    <span className="status clientError">{APIResult?.clientError.qtd}</span>
                   </div>
                   <div className="card-row">
                     <label>Erros servidor (qtd):</label>
-                    <span>{APIResult?.serverError.qtd}</span>
+                    <span className="status serverError">{APIResult?.serverError.qtd}</span>
                   </div>
                 </div>
               </div>

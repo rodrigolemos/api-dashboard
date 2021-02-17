@@ -5,6 +5,7 @@ export const FormWrapper = styled.aside`
   grid-area: form;
   flex-direction: column;
   box-shadow: 0px 5px 15px #DDD;
+  color: var(--gray-2);
   /* background-color: #FEFEFE; */
 
   h1 {
