@@ -58,6 +58,7 @@ const Form = (): React.ReactElement => {
       return prevState
     })
     setAPIInfo(apis.filter(api => api.name === selectedOption.value)[0]);
+    clearQuery();
   }
 
   const handleFormDate = (e: React.ChangeEvent<HTMLInputElement>): void => {

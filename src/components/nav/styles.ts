@@ -1,36 +1,86 @@
 import styled from 'styled-components';
+import { displayFromLeft } from '../../styles/animations';
 
 export const NavWrapper = styled.nav`
   grid-area: nav;
-  border-bottom: 1px solid #EEE;
   padding: 25px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: var(--light);
 `;
 
 export const Card = styled.div`
-  border: 1px solid #AAA;
-  border-radius: 5px;
-  padding: 10px;
-  width: 30%;
+  width: 31.8%;
   height: 100%;
+  overflow-y: auto;
+
+  background-color: #FFF;
+  box-shadow: 0px 0px 10px #CCC;
+  transition: all .2s;
+
+  .title {
+    border-bottom: 1px solid #EEE;
+    padding: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    span {
+      font-size: 15px;
+      font-weight: normal;
+    }
+  }
+
+  .half-column {
+    width: 50%;
+  }
+
+  .content {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &.inline {
+      padding: 0;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .card-row {
+      color: var(--gray-2);
+      font-size: 14px;
+      font-weight: normal;
+      margin: 6px 0;
+      display: flex;
+
+      label {
+        font-size: 13px;
+        color: var(--gray-1);
+        width: 120px;
+      }
+    }
+  }
 
   & > div {
     display: flex;
   }
-`;
 
-export const APIInfoCard = styled(Card)`
-  svg {
-    color: var(--gray-1);
-    font-size: 72px;
-    margin-right: 20px;
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 0px 15px #BBB;
   }
 
-  .api-group {
-    color: var(--gray-2);
-    font-size: 16px;
-    font-weight: normal;
+  &:nth-child(1) {
+    animation: ${displayFromLeft} .4s;
+  }
+
+  &:nth-child(2) {
+    animation: ${displayFromLeft} .8s;
+  }
+
+  &:nth-child(3) {
+    animation: ${displayFromLeft} 1.2s;
   }
 `;

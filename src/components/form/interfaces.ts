@@ -6,6 +6,7 @@ export interface ISelect {
 export interface IAPI {
   api: string;
   rota: string;
+  metodo: string;
   representante: string;
   login_cri: string;
   name: string;

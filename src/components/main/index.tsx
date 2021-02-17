@@ -14,7 +14,7 @@ const Main = ({ children }: IMainChildren): React.ReactElement => {
         APIData ? (
           children
         ) : (
-          <div>Preencha o formulário...</div>
+          <div />
         )
       ) : (
         <ReactLoading type="spin" color="#2684FF" height="45px" width="45px" />

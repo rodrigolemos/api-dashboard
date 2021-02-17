@@ -8,6 +8,7 @@ export interface IRequest {
 export interface IAPI {
   api: string;
   rota: string;
+  metodo: string;
   representante: string;
   login_cri: string;
   name: string;
@@ -16,7 +17,7 @@ export interface IAPI {
 }
 
 interface IAPIInfo {
-  apiInfo: IAPI | undefined;
+  APIInfo: IAPI | undefined;
   setAPIInfo(APIInfo: IAPI): void;
 }
 
@@ -27,14 +28,14 @@ interface IAPIInfoProvider {
 const APIInfoContext = createContext({} as IAPIInfo);
 
 const APIInfoProvider = ({ children }: IAPIInfoProvider) => {
-  const [apiInfo, setApiInfo] = useState<IAPI>();
+  const [APIInfo, setApiInfo] = useState<IAPI>();
 
   const setAPIInfo = (APIInfo: IAPI): void => {
     setApiInfo(APIInfo)
   }
 
   return (
-    <APIInfoContext.Provider value={{ apiInfo, setAPIInfo }}>
+    <APIInfoContext.Provider value={{ APIInfo, setAPIInfo }}>
       { children }
     </APIInfoContext.Provider>
   )

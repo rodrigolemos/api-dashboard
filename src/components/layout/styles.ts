@@ -8,13 +8,11 @@ export const Container = styled.div`
   grid-template-areas: "form nav"
                        "form main";
   grid-template-rows: 12rem 1fr;
-  grid-template-columns: 35% 1fr;
+  grid-template-columns: 34% 1fr;
 
   & > * {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    /* border: 1px solid #DDD; */
   }
 `;

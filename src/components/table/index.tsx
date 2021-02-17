@@ -53,7 +53,7 @@ export default function Table() {
                 <DurationBadge duration={api.tempo_exec}>{api.tempo_exec}</DurationBadge>
               </TableCell>
               <TableCell align="center">
-                <StatusBadge status={api.status}>{api.status}</StatusBadge>
+                <StatusBadge status={api.status}>{api.status || '-'}</StatusBadge>
               </TableCell>
               <TableCell align="center"><BsSearch /></TableCell>
             </TableRow>

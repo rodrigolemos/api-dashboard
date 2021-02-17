@@ -21,9 +21,21 @@ interface IAPI {
 
 interface IAPIData {
   APIData: IAPI[] | undefined;
+  APIResult: IAPIResult | undefined;
   requestStatus: IRequest;
   fetchAPIData(formFilters: IForm): Promise<void>;
   clearQuery(): void;
+}
+
+interface IResult {
+  qtd: number;
+  ms: number;
+}
+interface IAPIResult {
+  total: IResult;
+  success: IResult;
+  clientError: IResult;
+  serverError: IResult;
 }
 
 interface IAPIDataProvider {
@@ -34,10 +46,21 @@ const APILogsContext = createContext({} as IAPIData);
 
 const APIDataProvider = ({ children }: IAPIDataProvider) => {
   const [APIData, setAPIData] = useState<IAPI[]>();
+  const [APIResult, setAPIResult] = useState<IAPIResult>();
   const [requestStatus, setRequestStatus] = useState<IRequest>({
     isLoading: false,
     isError: false
   });
+
+  const calcAverageTime = (status: IResult): number => {
+    let average: number = 0;
+    if (status.qtd > 0) {
+      average = status.ms / status.qtd;
+    } else {
+      average = status.ms / 1;
+    }
+    return Number(average.toFixed(2));
+  }
 
   const fetchAPIData = useCallback(async (formFilters: IForm): Promise<void> => {
 
@@ -55,6 +78,49 @@ const APIDataProvider = ({ children }: IAPIDataProvider) => {
       })
 
       setAPIData(response.data);
+
+      const apiResult = response.data.reduce(
+        (result: IAPIResult, log) => {
+          if (log.status >= 200 && log.status < 300) {
+            result.success.qtd++;
+            result.success.ms += Number(log.tempo_exec);
+          }
+          if (log.status >= 400 && log.status < 500) {
+            result.clientError.qtd++;
+            result.clientError.ms += Number(log.tempo_exec);
+          }
+          if (log.status >= 500 || !log.status) {
+            result.serverError.qtd++;
+            result.serverError.ms += Number(log.tempo_exec);
+          }
+          result.total.qtd++;
+          result.total.ms += Number(log.tempo_exec);
+          return result;
+        }, {
+          total: {
+            qtd: 0,
+            ms: 0
+          },
+          success: {
+            qtd: 0,
+            ms: 0
+          },
+          clientError: {
+            qtd: 0,
+            ms: 0
+          },
+          serverError: {
+            qtd: 0,
+            ms: 0
+          },
+        })
+
+      apiResult.total.ms = calcAverageTime(apiResult.total);
+      apiResult.success.ms = calcAverageTime(apiResult.success);
+      apiResult.clientError.ms = calcAverageTime(apiResult.clientError);
+      apiResult.serverError.ms = calcAverageTime(apiResult.serverError);
+
+      setAPIResult(apiResult);
 
       setRequestStatus({
         isLoading: false,
@@ -76,7 +142,7 @@ const APIDataProvider = ({ children }: IAPIDataProvider) => {
   }
 
   return (
-    <APILogsContext.Provider value={{ APIData, requestStatus, fetchAPIData, clearQuery }}>
+    <APILogsContext.Provider value={{ APIData, APIResult, requestStatus, fetchAPIData, clearQuery }}>
       { children }
     </APILogsContext.Provider>
   )
