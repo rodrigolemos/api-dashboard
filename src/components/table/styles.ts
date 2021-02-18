@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-
 interface IStatusBadge {
   status: number;
 }
@@ -7,6 +6,21 @@ interface IStatusBadge {
 interface IDurationBadge {
   duration: number;
 }
+
+interface IContainer {
+  show: boolean;
+}
+
+export const Container = styled.div<IContainer>`
+  align-self: flex-start;
+  width: 100%;
+
+  ${({ show }) => show ? css`
+    display: flex;
+  ` : css`
+    display: none;
+  `}
+`
 
 export const StatusBadge = styled.span<IStatusBadge>`
   padding: 3px 11px;
