@@ -73,9 +73,13 @@ const APIDataProvider = ({ children }: IAPIDataProvider) => {
 
       const response = await api.get<IAPI[]>('/logs', {
         params: {
-          table: formFilters.api
+          table: formFilters.api,
+          date: formFilters.date.toISOString().split('T')[0],
+          startTime: formFilters.startTime,
+          finishTime: formFilters.finishTime,
+          additionalFilters: JSON.stringify(formFilters.additionalFilters),
         }
-      })
+      });
 
       setAPIData(response.data);
 
