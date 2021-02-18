@@ -9,8 +9,11 @@ export const Container = styled.div<IContainer>`
   width: 100%;
   height: 100%;
 
+  align-items: center;
+  justify-content: center;
+
   background-color: #FFF;
-  border: 1px solid #DDD;
+  box-shadow: 0px 0px 10px #DDD;
 
   animation: ${popUpFromTop} .3s;
 

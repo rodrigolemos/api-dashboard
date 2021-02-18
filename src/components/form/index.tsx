@@ -185,22 +185,6 @@ const Form = (): React.ReactElement => {
         )}
 
         <div className="row">
-          <div className="col-full">
-            <label htmlFor="name">Serviço</label>
-            {!requestStatus.isLoading ? (
-              <Select
-                id="api"
-                options={apisOptions}
-                onChange={handleFormAPI}
-                required
-              />
-            ) : (
-              <ReactLoading type="bubbles" color="#2684FF" height="42px" width="47px" />
-            )}
-          </div>
-        </div>
-
-        <div className="row">
           <div className="col-half">
             <label htmlFor="date">Data</label>
             <input
@@ -232,6 +216,22 @@ const Form = (): React.ReactElement => {
                 onChange={handleFormTime}
               />
             </div>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-full">
+            <label htmlFor="name">Serviço</label>
+            {!requestStatus.isLoading ? (
+              <Select
+                id="api"
+                options={apisOptions}
+                onChange={handleFormAPI}
+                required
+              />
+            ) : (
+              <ReactLoading type="bubbles" color="#2684FF" height="42px" width="47px" />
+            )}
           </div>
         </div>
 
