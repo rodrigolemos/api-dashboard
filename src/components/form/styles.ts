@@ -70,8 +70,8 @@ export const FormWrapper = styled.aside`
     border: none;
     padding: 8px 15px;
     border-radius: 5px;
-    background-color: #E2E8F0;
-    color: #2D3748;
+    background-color: var(--semi-gray);
+    color: var(--semi-gray-font);
     font-size: 16px;
     font-weight: bold;
     outline: none;
@@ -79,7 +79,7 @@ export const FormWrapper = styled.aside`
     transition: all .2s ease-in-out;
 
     &:hover {
-      background-color: #CBD5E0;
+      background-color: var(--semi-gray-1);
     }
   }
 

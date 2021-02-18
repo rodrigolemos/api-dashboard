@@ -18,9 +18,14 @@ export default createGlobalStyle`
 
     --light: #F4F5F7;
 
+    --semi-gray: #E2E8F0;
+    --semi-gray-1: #CBD5E0;
+
     --gray: #D1D5DB;
     --gray-1: #9CA3AF;
     --gray-2: #374151;
+
+    --semi-gray-font: #2D3748;
   }
 
   ::-webkit-scrollbar {
