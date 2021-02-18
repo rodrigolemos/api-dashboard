@@ -54,6 +54,10 @@ export const DurationBadge = styled.span<IDurationBadge>`
   `)}
 `;
 
+export const DetailBadge = styled.span`
+  cursor: pointer;
+`;
+
 export const RouteBadge = styled.span`
   font-size: 13px;
   color: #4B5563;

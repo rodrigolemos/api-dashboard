@@ -6,7 +6,6 @@ export const FormWrapper = styled.aside`
   flex-direction: column;
   box-shadow: 0px 5px 15px #DDD;
   color: var(--gray-2);
-  /* background-color: #FEFEFE; */
 
   h1 {
     font-size: 34px;
@@ -115,7 +114,7 @@ export const FormWrapper = styled.aside`
 
       .col-half {
         display: inline-block;
-        width: 50%
+        width: 50%;
       }
 
       .centered {

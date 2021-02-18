@@ -2,7 +2,7 @@ import { useAPIData } from '../../hooks/logs';
 import { useAPIDetail } from '../../hooks/api-detail';
 import { BsSearch } from 'react-icons/bs';
 import { formatDate } from '../../utils/formatDate';
-import { Container, DurationBadge, RouteBadge, StatusBadge } from './styles';
+import { Container, DetailBadge, DurationBadge, RouteBadge, StatusBadge } from './styles';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import {
   Table as MaterialTable,
@@ -59,7 +59,7 @@ export default function Table() {
                   <StatusBadge status={api.status}>{api.status || '-'}</StatusBadge>
                 </TableCell>
                 <TableCell align="center">
-                  <BsSearch onClick={setShowDetail} />
+                  <DetailBadge><BsSearch onClick={setShowDetail} /></DetailBadge>
                 </TableCell>
               </TableRow>
             ))}

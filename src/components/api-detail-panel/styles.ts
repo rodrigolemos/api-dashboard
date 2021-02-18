@@ -6,20 +6,35 @@ interface IContainer {
 }
 
 export const Container = styled.div<IContainer>`
-  width: 100%;
-  height: 100%;
-
-  align-items: center;
-  justify-content: center;
-
-  background-color: #FFF;
-  box-shadow: 0px 0px 10px #DDD;
-
-  animation: ${popUpFromTop} .3s;
-
   ${({ show }) => show ? css`
-    display: flex;
+    display: grid;
   ` : css`
     display: none;
   `}
+
+  width: 100%;
+  height: 100%;
+
+  grid-template-areas: "summary details";
+  grid-template-columns: 33% 1fr;
+
+  background-color: #FFF;
+  box-shadow: 0px 0px 10px #DDD;
+  animation: ${popUpFromTop} .3s;
+
+  & > * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #EEE;
+    padding: 5px;
+  }
 `
+
+export const Summary = styled.aside`
+  grid-area: summary;
+`;
+
+export const Details = styled.div`
+  grid-area: details;
+`;
