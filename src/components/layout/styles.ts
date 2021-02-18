@@ -7,8 +7,8 @@ export const Container = styled.div`
 
   grid-template-areas: "form nav"
                        "form main";
-  grid-template-rows: 12rem 1fr;
-  grid-template-columns: 34% 1fr;
+  grid-template-rows: 13rem 1fr;
+  grid-template-columns: 33% 1fr;
 
   & > * {
     display: flex;

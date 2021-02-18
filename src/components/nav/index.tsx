@@ -1,3 +1,4 @@
+import TimelineChart from '../timeline-chart';
 import { NavWrapper, Card } from './styles';
 import { useAPIData } from '../../hooks/logs'
 import { useAPIInfo } from '../../hooks/api-info'
@@ -70,7 +71,14 @@ const Nav = (): React.ReactElement => {
             </div>
           </Card>
 
-          <Card />
+          <Card>
+            <div className="title">
+              <span>Linha do Tempo</span>
+            </div>
+            <div className="content">
+              <TimelineChart />
+            </div>
+          </Card>
         </>
       )}
     </NavWrapper>
