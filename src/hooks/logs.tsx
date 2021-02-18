@@ -117,7 +117,8 @@ const APIDataProvider = ({ children }: IAPIDataProvider) => {
             qtd: 0,
             ms: 0
           },
-        })
+        }
+      )
 
       apiResult.total.ms = calcAverageTime(apiResult.total);
       apiResult.success.ms = calcAverageTime(apiResult.success);
