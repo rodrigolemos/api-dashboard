@@ -1,17 +1,17 @@
 import ReactLoading from 'react-loading';
-import { useAPIData } from '../../hooks/logs'
+import { useLogData } from '../../hooks/logs'
 import { MainWrapper, MainInfo } from './styles';
 interface IMainChildren {
   children: JSX.Element[] | JSX.Element;
 }
 
 const Main = ({ children }: IMainChildren): React.ReactElement => {
-  const { APIData, requestStatus } = useAPIData();
+  const { logData, requestStatus } = useLogData();
 
   return (
     <MainWrapper>
       {!requestStatus.isLoading ? (
-        APIData ? (
+        logData ? (
           children
         ) : (
           <MainInfo>Preencha o formulário para consultar.</MainInfo>

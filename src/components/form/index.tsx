@@ -1,16 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 import Select from 'react-select';
 import ReactLoading from 'react-loading';
-import { format } from 'date-fns';
 import { IAPI, IForm, IRequest, ISelect } from './interfaces';
-import { api } from '../../services/api';
 import { additionalFilterDefaultOptions } from '../../utils/additionalFilterOptions';
 import { FormWrapper } from './styles';
 import { useAPIDetail } from '../../hooks/api-detail';
-import { useAPIData } from '../../hooks/logs';
+import { useLogData } from '../../hooks/logs';
 import { useAPIInfo } from '../../hooks/api-info';
-
-// import { mock } from '../../data/tables';
+import { mock } from '../../data/fake-apis';
 
 const Form = (): React.ReactElement => {
   const [apisOptions, setApisOptions] = useState<ISelect[]>([]);
@@ -19,9 +16,6 @@ const Form = (): React.ReactElement => {
   const [additionalFilters, setAdditionalFilters] = useState<ISelect[]>([]);
   const [formFilters, setFormFilters] = useState<IForm>({
     api: '',
-    date: new Date(),
-    startTime: '00:00',
-    finishTime: '23:59',
     additionalFilters: []
   })
   const [requestStatus, setRequestStatus] = useState<IRequest>({
@@ -30,7 +24,7 @@ const Form = (): React.ReactElement => {
   });
 
   const { clearDetail } = useAPIDetail();
-  const { fetchAPIData, clearQuery } = useAPIData();
+  const { fetchLogData, clearQuery } = useLogData();
   const { setAPIInfo } = useAPIInfo();
 
   const handleAddAdditionalFilter = (selectedOption: any): void => {
@@ -64,34 +58,6 @@ const Form = (): React.ReactElement => {
     setAPIInfo(apis.filter(api => api.name === selectedOption.value)[0]);
     clearQuery();
     clearDetail();
-  }
-
-  const handleFormDate = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const element = e.currentTarget;
-    const validDate = new Date(element.value).getTime();
-    if (!isNaN(validDate) && validDate > 0) {
-      setFormFilters(prevState => {
-        if (new Date(element.value) > new Date()) {
-          prevState.date = new Date()
-        } else {
-          prevState.date = new Date(`${element.value} 01:00`)
-        }
-        return prevState
-      })
-      fetchApis()
-    }
-  }
-
-  const handleFormTime = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const element = e.currentTarget;
-    setFormFilters(prevState => {
-      if (element.id === 'startTime') {
-        prevState.startTime = element.value
-      } else {
-        prevState.finishTime = element.value
-      }
-      return prevState
-    })
   }
 
   const handleFormAdditional = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -128,7 +94,7 @@ const Form = (): React.ReactElement => {
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
-    fetchAPIData(formFilters)
+    fetchLogData(formFilters)
   }
 
   const fetchApis = useCallback(async (): Promise<void> => {
@@ -140,28 +106,19 @@ const Form = (): React.ReactElement => {
 
     try {
 
-      // const x = await mock(true, 2000);
+      const apis = await mock(true, 3000);
 
-      const response = await api.get<IAPI[]>('/tables', {
-        params: {
-          data_cri: format(formFilters.date, 'yyyy-MM-dd')
-        }
-      });
-
-      if (response.status !== 200)
-        throw new Error('Não foi possível consultar as tabelas');
-
-      const formattedAPIs = response.data.map((responseAPI: IAPI) => {
-        const { api, rota, name } = responseAPI;
+      const formattedAPIs = apis.map((responseAPI: IAPI) => {
+        const { name, route } = responseAPI;
         return {
-          value: name,
-          label: `${api} (${rota})`
+          value: route,
+          label: `${name} (${route})`
         }
       });
 
       setApisOptions(formattedAPIs);
 
-      setApis(response.data);
+      setApis(apis);
 
       setRequestStatus({
         isLoading: false,
@@ -177,7 +134,7 @@ const Form = (): React.ReactElement => {
 
     }
 
-  }, [formFilters.date]);
+  }, []);
 
   useEffect(() => {
     fetchApis();
@@ -195,41 +152,6 @@ const Form = (): React.ReactElement => {
             </div>
           </div>
         )}
-
-        <div className="row">
-          <div className="col-half">
-            <label htmlFor="date">Data</label>
-            <input
-              required
-              type="date"
-              id="date"
-              defaultValue={formFilters.date.toISOString().split('T')[0]}
-              onChange={handleFormDate}
-            />
-          </div>
-          <div className="col-half">
-            <div className="col-half">
-              <label htmlFor="startTime">Hora início</label>
-              <input
-                required
-                type="time"
-                id="startTime"
-                defaultValue={formFilters.startTime}
-                onChange={handleFormTime}
-              />
-            </div>
-            <div className="col-half">
-              <label htmlFor="finishTime">Hora fim</label>
-              <input
-                required
-                type="time"
-                id="finishTime"
-                defaultValue={formFilters.finishTime}
-                onChange={handleFormTime}
-              />
-            </div>
-          </div>
-        </div>
 
         <div className="row">
           <div className="col-full">

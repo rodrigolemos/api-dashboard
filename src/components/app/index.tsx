@@ -1,18 +1,18 @@
 import Layout from '../layout';
-import { APIDataProvider } from '../../hooks/logs'
+import { LogDataProvider } from '../../hooks/logs'
 import { APIInfoProvider } from '../../hooks/api-info'
 import { APIDetailContextProvider } from '../../hooks/api-detail'
 
 function App() {
   return (
     <div className="App">
-      <APIDataProvider>
+      <LogDataProvider>
         <APIInfoProvider>
           <APIDetailContextProvider>
             <Layout />
           </APIDetailContextProvider>
         </APIInfoProvider>
-      </APIDataProvider>
+      </LogDataProvider>
     </div>
   );
 }

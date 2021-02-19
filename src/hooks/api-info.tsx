@@ -1,19 +1,8 @@
 import { useState, createContext, useContext } from 'react';
-
+import { IAPI } from '../components/form/interfaces';
 export interface IRequest {
   isLoading: boolean;
   isError: boolean;
-}
-
-export interface IAPI {
-  api: string;
-  rota: string;
-  metodo: string;
-  representante: string;
-  login_cri: string;
-  name: string;
-  group: string;
-  responsavel: string;
 }
 
 interface IAPIInfo {

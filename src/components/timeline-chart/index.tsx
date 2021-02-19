@@ -65,7 +65,7 @@ const TimelineChart = (): React.ReactElement => {
     });
 
     try {
-
+      
       if (!table) return;
 
       const response = await api.get<ITimeline>(`/logs/forecast?table=${table}`);
@@ -92,16 +92,16 @@ const TimelineChart = (): React.ReactElement => {
   }, []);
 
   useEffect(() => {
-    fetchTimeline(APIInfo?.name);
+    // fetchTimeline(APIInfo?.name);
   }, [fetchTimeline, APIInfo?.name]);
 
   return (
     <div id="timeline-chart">
-      {!requestStatus.isLoading ? (
+      {/* {!requestStatus.isLoading ? (
         <ReactApexChart options={chartData.options} series={chartData.series} type="area" height={110} />
       ) : (
         <ReactLoading type="spin" color="#2684FF" height="15px" width="15px" />
-      )}
+      )} */}
     </div>
   );
 }

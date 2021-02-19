@@ -1,28 +1,27 @@
 import { useCallback, useState, createContext, useContext } from 'react';
-import { api } from '../services/api';
 import { IForm } from '../components/form/interfaces';
+import { mock } from '../data/fake-logs';
 
 export interface IRequest {
   isLoading: boolean;
   isError: boolean;
 }
 
-interface IAPI {
-  seq: number;
-  ip_entrada: string;
-  rota: string;
-  metodo: string;
-  verbo: string;
+export interface ILog {
+  id: number;
+  ip: string;
   status: number;
-  data_hora: Date;
-  tempo_exec: number;
+  route: string;
+  method: string;
+  date: Date;
+  duration: number;
 }
 
-interface IAPIData {
-  APIData: IAPI[] | undefined;
-  APIResult: IAPIResult | undefined;
+interface ILogData {
+  logData: ILog[] | undefined;
+  logResult: ILogResult | undefined;
   requestStatus: IRequest;
-  fetchAPIData(formFilters: IForm): Promise<void>;
+  fetchLogData(formFilters: IForm): Promise<void>;
   clearQuery(): void;
 }
 
@@ -30,22 +29,22 @@ interface IResult {
   qtd: number;
   ms: number;
 }
-interface IAPIResult {
+interface ILogResult {
   total: IResult;
   success: IResult;
   clientError: IResult;
   serverError: IResult;
 }
 
-interface IAPIDataProvider {
+interface ILogDataProvider {
   children: JSX.Element[] | JSX.Element;
 }
 
-const APILogsContext = createContext({} as IAPIData);
+const APILogsContext = createContext({} as ILogData);
 
-const APIDataProvider = ({ children }: IAPIDataProvider) => {
-  const [APIData, setAPIData] = useState<IAPI[]>();
-  const [APIResult, setAPIResult] = useState<IAPIResult>();
+const LogDataProvider = ({ children }: ILogDataProvider) => {
+  const [logData, setLogData] = useState<ILog[]>();
+  const [logResult, setLogResult] = useState<ILogResult>();
   const [requestStatus, setRequestStatus] = useState<IRequest>({
     isLoading: false,
     isError: false
@@ -61,7 +60,7 @@ const APIDataProvider = ({ children }: IAPIDataProvider) => {
     return Number(average.toFixed(2));
   }, []);
 
-  const fetchAPIData = useCallback(async (formFilters: IForm): Promise<void> => {
+  const fetchLogData = useCallback(async (formFilters: IForm): Promise<void> => {
 
     setRequestStatus({
       isLoading: true,
@@ -70,34 +69,30 @@ const APIDataProvider = ({ children }: IAPIDataProvider) => {
 
     try {
 
-      const response = await api.get<IAPI[]>('/logs', {
-        params: {
-          table: formFilters.api,
-          date: formFilters.date.toISOString().split('T')[0],
-          startTime: formFilters.startTime,
-          finishTime: formFilters.finishTime,
-          additionalFilters: JSON.stringify(formFilters.additionalFilters),
-        }
-      });
+      const logs = await mock(
+        formFilters.api,
+        JSON.stringify(formFilters.additionalFilters),
+        true, 4000
+      );
 
-      setAPIData(response.data);
+      setLogData(logs);
 
-      const apiResult = response.data.reduce(
-        (result: IAPIResult, log) => {
+      const newlogResult = logs.reduce(
+        (result: ILogResult, log) => {
           if (log.status >= 200 && log.status < 300) {
             result.success.qtd++;
-            result.success.ms += Number(log.tempo_exec);
+            result.success.ms += Number(log.duration);
           }
           if (log.status >= 400 && log.status < 500) {
             result.clientError.qtd++;
-            result.clientError.ms += Number(log.tempo_exec);
+            result.clientError.ms += Number(log.duration);
           }
           if (log.status >= 500 || !log.status) {
             result.serverError.qtd++;
-            result.serverError.ms += Number(log.tempo_exec);
+            result.serverError.ms += Number(log.duration);
           }
           result.total.qtd++;
-          result.total.ms += Number(log.tempo_exec);
+          result.total.ms += Number(log.duration);
           return result;
         }, {
           total: {
@@ -119,12 +114,12 @@ const APIDataProvider = ({ children }: IAPIDataProvider) => {
         }
       )
 
-      apiResult.total.ms = calcAverageTime(apiResult.total);
-      apiResult.success.ms = calcAverageTime(apiResult.success);
-      apiResult.clientError.ms = calcAverageTime(apiResult.clientError);
-      apiResult.serverError.ms = calcAverageTime(apiResult.serverError);
+      newlogResult.total.ms = calcAverageTime(newlogResult.total);
+      newlogResult.success.ms = calcAverageTime(newlogResult.success);
+      newlogResult.clientError.ms = calcAverageTime(newlogResult.clientError);
+      newlogResult.serverError.ms = calcAverageTime(newlogResult.serverError);
 
-      setAPIResult(apiResult);
+      setLogResult(newlogResult);
 
       setRequestStatus({
         isLoading: false,
@@ -142,20 +137,20 @@ const APIDataProvider = ({ children }: IAPIDataProvider) => {
   }, [calcAverageTime]);
 
   const clearQuery = (): void => {
-    setAPIData(undefined);
+    setLogData(undefined);
   }
 
   return (
-    <APILogsContext.Provider value={{ APIData, APIResult, requestStatus, fetchAPIData, clearQuery }}>
+    <APILogsContext.Provider value={{ logData, logResult, requestStatus, fetchLogData, clearQuery }}>
       { children }
     </APILogsContext.Provider>
   )
 }
 
-const useAPIData = () => {
+const useLogData = () => {
   const context = useContext(APILogsContext);
-  if (!context) throw new Error('useAPIData must be used within APILogsContext');
+  if (!context) throw new Error('useLogData must be used within APILogsContext');
   return context;
 }
 
-export { APIDataProvider, useAPIData }
+export { LogDataProvider, useLogData }

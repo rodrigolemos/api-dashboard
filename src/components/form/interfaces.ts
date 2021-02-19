@@ -4,14 +4,10 @@ export interface ISelect {
 }
 
 export interface IAPI {
-  api: string;
-  rota: string;
-  metodo: string;
-  representante: string;
-  login_cri: string;
+  route: string;
+  method: string;
   name: string;
   group: string;
-  responsavel: string;
 }
 
 export interface IRequest {
@@ -25,8 +21,5 @@ interface IAdditional {
 }
 export interface IForm {
   api: string;
-  date: Date;
-  startTime: string;
-  finishTime: string;
   additionalFilters: IAdditional[];
 }

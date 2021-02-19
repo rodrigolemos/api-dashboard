@@ -1,14 +1,14 @@
 import TimelineChart from '../timeline-chart';
 import { NavWrapper, Card } from './styles';
-import { useAPIData } from '../../hooks/logs'
+import { useLogData } from '../../hooks/logs'
 import { useAPIInfo } from '../../hooks/api-info'
 
 const Nav = (): React.ReactElement => {
-  const { APIData, APIResult } = useAPIData();
+  const { logData, logResult } = useLogData();
   const { APIInfo } = useAPIInfo();
   return (
     <NavWrapper>
-      {APIData && (
+      {logData && (
         <>
           <Card>
             <div className="title">
@@ -16,16 +16,16 @@ const Nav = (): React.ReactElement => {
             </div>
             <div className="content">
               <div className="card-row">
-                <label>Representante:</label>
+                <label>Grupo:</label>
                 <span>{APIInfo?.group}</span>
               </div>
               <div className="card-row">
                 <label>Endpoint:</label>
-                <span>{APIInfo?.metodo} {APIInfo?.rota}</span>
+                <span>{APIInfo?.route}</span>
               </div>
               <div className="card-row">
-                <label>Responsável:</label>
-                <span>{APIInfo?.responsavel}</span>
+                <label>Nome:</label>
+                <span>{APIInfo?.name}</span>
               </div>
             </div>
           </Card>
@@ -33,22 +33,22 @@ const Nav = (): React.ReactElement => {
           <Card>
             <div className="title">
               <span>Informações de Execução</span>
-              <span>Total: {APIResult?.total.qtd}</span>
+              <span>Total: {logResult?.total.qtd}</span>
             </div>
             <div className="content inline">
               <div className="half-column">
                 <div className="content">
                   <div className="card-row">
                     <label>Sucesso (qtd):</label>
-                    <span className="status success">{APIResult?.success.qtd}</span>
+                    <span className="status success">{logResult?.success.qtd}</span>
                   </div>
                   <div className="card-row">
                     <label>Erros cliente (qtd):</label>
-                    <span className="status clientError">{APIResult?.clientError.qtd}</span>
+                    <span className="status clientError">{logResult?.clientError.qtd}</span>
                   </div>
                   <div className="card-row">
                     <label>Erros servidor (qtd):</label>
-                    <span className="status serverError">{APIResult?.serverError.qtd}</span>
+                    <span className="status serverError">{logResult?.serverError.qtd}</span>
                   </div>
                 </div>
               </div>
@@ -56,15 +56,15 @@ const Nav = (): React.ReactElement => {
                 <div className="content">
                   <div className="card-row">
                     <label>Média em ms:</label>
-                    <span>{APIResult?.success.ms}</span>
+                    <span>{logResult?.success.ms}</span>
                   </div>
                   <div className="card-row">
                     <label>Média em ms:</label>
-                    <span>{APIResult?.clientError.ms}</span>
+                    <span>{logResult?.clientError.ms}</span>
                   </div>
                   <div className="card-row">
                     <label>Média em ms:</label>
-                    <span>{APIResult?.serverError.ms}</span>
+                    <span>{logResult?.serverError.ms}</span>
                   </div>
                 </div>
               </div>
