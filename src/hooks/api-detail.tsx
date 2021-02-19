@@ -34,6 +34,10 @@ const APIDetailContextProvider = ({ children }: IAPIDetailContextProvider) => {
 
   const clearDetail = (): void => {
     setShow(false);
+    setDetailQuery({
+      table: '',
+      seq: 0
+    });
   }
 
   return (

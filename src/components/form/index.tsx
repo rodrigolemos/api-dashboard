@@ -6,8 +6,9 @@ import { IAPI, IForm, IRequest, ISelect } from './interfaces';
 import { api } from '../../services/api';
 import { additionalFilterDefaultOptions } from '../../utils/additionalFilterOptions';
 import { FormWrapper } from './styles';
-import { useAPIData } from '../../hooks/logs'
-import { useAPIInfo } from '../../hooks/api-info'
+import { useAPIDetail } from '../../hooks/api-detail';
+import { useAPIData } from '../../hooks/logs';
+import { useAPIInfo } from '../../hooks/api-info';
 
 const Form = (): React.ReactElement => {
   const [apisOptions, setApisOptions] = useState<ISelect[]>([]);
@@ -26,6 +27,7 @@ const Form = (): React.ReactElement => {
     isError: false
   });
 
+  const { clearDetail } = useAPIDetail();
   const { fetchAPIData, clearQuery } = useAPIData();
   const { setAPIInfo } = useAPIInfo();
 
@@ -59,6 +61,7 @@ const Form = (): React.ReactElement => {
     })
     setAPIInfo(apis.filter(api => api.name === selectedOption.value)[0]);
     clearQuery();
+    clearDetail();
   }
 
   const handleFormDate = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -114,6 +117,11 @@ const Form = (): React.ReactElement => {
 
       return prevState
     })
+  }
+
+  const clearForm = (): void => {
+    clearQuery();
+    clearDetail();
   }
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -174,7 +182,7 @@ const Form = (): React.ReactElement => {
   return (
     <FormWrapper>
       <h1>API Dashboard</h1>
-      <form onSubmit={handleFormSubmit} onChange={clearQuery}>
+      <form onSubmit={handleFormSubmit} onChange={clearForm}>
 
         {requestStatus.isError && (
           <div className="row">
