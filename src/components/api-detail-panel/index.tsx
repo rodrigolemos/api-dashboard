@@ -19,9 +19,7 @@ const APIDetailPanel = (): React.ReactElement => {
   return (
     <Container show={show}>
       <span className="btn-close" onClick={setShowDetail}>&times;</span>
-
       <Details>
-
         <DetailPanel>
           <div className="title">
             <MdCallReceived className="request" />
@@ -75,7 +73,6 @@ const APIDetailPanel = (): React.ReactElement => {
             <ReactJson src={JSON_TEST} collapsed={true} enableClipboard={false} displayDataTypes={false} />
           </div>
         </DetailPanel>
-
       </Details>
 
       <Summary>

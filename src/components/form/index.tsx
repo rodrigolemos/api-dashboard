@@ -223,14 +223,18 @@ const Form = (): React.ReactElement => {
           <div className="col-full">
             <label htmlFor="name">Serviço</label>
             {!requestStatus.isLoading ? (
-              <Select
-                id="api"
-                options={apisOptions}
-                onChange={handleFormAPI}
-                required
-              />
+              <div className="select-wrapper">
+                <Select
+                  id="api"
+                  options={apisOptions}
+                  onChange={handleFormAPI}
+                  required
+                />
+              </div>
             ) : (
-              <ReactLoading type="bubbles" color="#2684FF" height="42px" width="47px" />
+              <div className="select-wrapper">
+                <ReactLoading type="bubbles" color="#2684FF" height="42px" width="47px" />
+              </div>
             )}
           </div>
         </div>

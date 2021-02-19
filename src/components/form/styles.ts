@@ -88,6 +88,10 @@ export const FormWrapper = styled.aside`
     display: flex;
     flex-direction: column;
 
+    .select-wrapper {
+      height: 30px;
+    }
+
     ul {
       margin: 0;
       padding: 0;
