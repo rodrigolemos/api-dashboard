@@ -7,7 +7,7 @@ import { MdCallMade, MdCallReceived } from 'react-icons/md';
 import { useAPIDetail } from '../../hooks/api-detail';
 import { DurationBadge, StatusBadge } from '../table/styles';
 import { Container, Details, DetailPanel, Divider, Summary, SummaryStat } from './styles';
-// import { formatDate } from '../../utils/formatDate';
+import { formatDate } from '../../utils/formatDate';
 import { api } from '../../services/api';
 
 interface IRequest {
@@ -45,6 +45,13 @@ const APIDetailPanel = (): React.ReactElement => {
     }
     return { data };
   }, []);
+
+  const handleDate = (date: Date | undefined): string => {
+    if (typeof date !== 'undefined') {
+      return formatDate(date);
+    }
+    return 'Indisponível';
+  }
 
   const fetchDetails = useCallback(async (): Promise<void> => {
 
@@ -152,7 +159,7 @@ const APIDetailPanel = (): React.ReactElement => {
                 <BiCalendar />
               </div>
               <div className="title">Data/Hora</div>
-              <div className="content">{details?.data_hora}</div>
+              <div className="content">{handleDate(details?.data_hora)}</div>
             </SummaryStat>
 
             <SummaryStat>

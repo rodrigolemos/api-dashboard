@@ -10,6 +10,8 @@ import { useAPIDetail } from '../../hooks/api-detail';
 import { useAPIData } from '../../hooks/logs';
 import { useAPIInfo } from '../../hooks/api-info';
 
+// import { mock } from '../../data/tables';
+
 const Form = (): React.ReactElement => {
   const [apisOptions, setApisOptions] = useState<ISelect[]>([]);
   const [apis, setApis] = useState<IAPI[]>([]);
@@ -137,6 +139,8 @@ const Form = (): React.ReactElement => {
     });
 
     try {
+
+      // const x = await mock(true, 2000);
 
       const response = await api.get<IAPI[]>('/tables', {
         params: {
