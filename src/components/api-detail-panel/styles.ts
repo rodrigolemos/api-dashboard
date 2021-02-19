@@ -16,8 +16,8 @@ export const Container = styled.div<IContainer>`
   width: 100%;
   height: 100%;
 
-  grid-template-areas: "summary details";
-  grid-template-columns: 33% 1fr;
+  grid-template-areas: "details summary";
+  grid-template-columns: 1fr 33%;
 
   background-color: #FFF;
   box-shadow: 0px 0px 10px #DDD;
@@ -26,7 +26,7 @@ export const Container = styled.div<IContainer>`
   .btn-close {
     position: absolute;
     top: 10px;
-    left: 10px;
+    right: 10px;
     padding: 1px 9px;
 
     border: none;
@@ -48,7 +48,6 @@ export const Container = styled.div<IContainer>`
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    border: 1px solid #EEE;
     padding: 15px;
   }
 `
@@ -115,6 +114,69 @@ export const SummaryStat = styled.div`
   }
 `;
 
+export const Divider = styled.div`
+  width: 100%;
+  margin: 35px 0px;
+  padding: 0;
+  border-bottom: 2px dashed var(--gray);
+`;
+
 export const Details = styled.section`
   grid-area: details;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  overflow-y: scroll;
+`;
+
+export const DetailPanel = styled.div`
+  border: 1px solid #DDD;
+  box-shadow: 1px 2px 3px #CCC;
+
+  width: 100%;
+  margin: 10px 0;
+
+  span {
+    font-size: 18px;
+    font-weight: normal;
+    padding: 0;
+  }
+
+  & > div {
+    padding: 10px;
+  }
+
+  .title {
+    border-bottom: 1px solid #DDD;
+    display: flex;
+    align-items: center;
+
+    svg {
+      font-size: 20px;
+      margin-right: 10px;
+      padding: 2px;
+      border-radius: 5px;
+      color: #FFF;
+
+      &.request {
+        background-color: var(--success);
+      }
+
+      &.response {
+        background-color: var(--info);
+      }
+
+      &.debug {
+        background-color: var(--warning);
+      }
+    }
+  }
+
+  .body {
+    background-color: var(--light);
+    * {
+      font-size: 12px;
+    }
+  }
 `;

@@ -173,7 +173,7 @@ const Form = (): React.ReactElement => {
 
   return (
     <FormWrapper>
-      <h1>APIs Logs</h1>
+      <h1>API Dashboard</h1>
       <form onSubmit={handleFormSubmit} onChange={clearQuery}>
 
         {requestStatus.isError && (
