@@ -2,9 +2,15 @@ import { useState, createContext, useContext } from 'react';
 
 interface IAPIDetail {
   show: boolean;
-  setShowDetail(): void;
+  setShowDetail(table?: string, seq?: number): void;
+  clearDetail(): void;
+  detailQuery: IAPIDetailQuery;
 }
 
+interface IAPIDetailQuery {
+  table?: string;
+  seq?: number;
+}
 interface IAPIDetailContextProvider {
   children: JSX.Element[] | JSX.Element;
 }
@@ -13,13 +19,25 @@ const APIDetailContext = createContext({} as IAPIDetail);
 
 const APIDetailContextProvider = ({ children }: IAPIDetailContextProvider) => {
   const [show, setShow] = useState<boolean>(false);
+  const [detailQuery, setDetailQuery] = useState<IAPIDetailQuery>({
+    table: '',
+    seq: 0
+  });
 
-  const setShowDetail = (): void => {
+  const setShowDetail = (table?: string, seq?: number): void => {
     setShow(!show);
+    setDetailQuery({
+      table,
+      seq
+    });
+  }
+
+  const clearDetail = (): void => {
+    setShow(false);
   }
 
   return (
-    <APIDetailContext.Provider value={{ show, setShowDetail }}>
+    <APIDetailContext.Provider value={{ show, setShowDetail, clearDetail, detailQuery }}>
       { children }
     </APIDetailContext.Provider>
   )

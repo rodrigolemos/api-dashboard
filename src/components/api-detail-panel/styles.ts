@@ -16,8 +16,8 @@ export const Container = styled.div<IContainer>`
   width: 100%;
   height: 100%;
 
-  grid-template-areas: "details summary";
-  grid-template-columns: 1fr 33%;
+  grid-template-areas: "summary details";
+  grid-template-columns: 33% 1fr;
 
   background-color: #FFF;
   box-shadow: 0px 0px 10px #DDD;
@@ -26,7 +26,7 @@ export const Container = styled.div<IContainer>`
   .btn-close {
     position: absolute;
     top: 10px;
-    right: 10px;
+    left: 10px;
     padding: 1px 9px;
 
     border: none;
@@ -175,6 +175,7 @@ export const DetailPanel = styled.div`
 
   .body {
     background-color: var(--light);
+    overflow-x: auto;
     * {
       font-size: 12px;
     }

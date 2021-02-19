@@ -1,4 +1,5 @@
 import { useAPIData } from '../../hooks/logs';
+import { useAPIInfo } from '../../hooks/api-info';
 import { useAPIDetail } from '../../hooks/api-detail';
 import { BsSearch } from 'react-icons/bs';
 import { formatDate } from '../../utils/formatDate';
@@ -25,6 +26,7 @@ const StyledTableCell = withStyles(() =>
 
 export default function Table() {
   const { APIData } = useAPIData();
+  const { APIInfo } = useAPIInfo();
   const { show, setShowDetail } = useAPIDetail();
   return (
     <Container show={!show}>
@@ -33,7 +35,7 @@ export default function Table() {
           <TableHead>
             <TableRow>
               <StyledTableCell>Data/Hora</StyledTableCell>
-              <StyledTableCell>Rota</StyledTableCell>
+              <StyledTableCell>IP</StyledTableCell>
               <StyledTableCell>Método</StyledTableCell>
               <StyledTableCell align="center">Verbo</StyledTableCell>
               <StyledTableCell align="center">Duração (ms)</StyledTableCell>
@@ -48,7 +50,7 @@ export default function Table() {
                   {formatDate(api.data_hora)}
                 </TableCell>
                 <TableCell>
-                  <RouteBadge>{api.rota}</RouteBadge>
+                  <RouteBadge>{api.ip_entrada}</RouteBadge>
                 </TableCell>
                 <TableCell>{api.metodo}</TableCell>
                 <TableCell align="center">{api.verbo}</TableCell>
@@ -59,7 +61,7 @@ export default function Table() {
                   <StatusBadge status={api.status}>{api.status || '-'}</StatusBadge>
                 </TableCell>
                 <TableCell align="center">
-                  <DetailBadge><BsSearch onClick={setShowDetail} /></DetailBadge>
+                  <DetailBadge><BsSearch onClick={() => setShowDetail(APIInfo?.name, api.seq)} /></DetailBadge>
                 </TableCell>
               </TableRow>
             ))}

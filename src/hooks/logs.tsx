@@ -1,6 +1,5 @@
 import { useCallback, useState, createContext, useContext } from 'react';
 import { api } from '../services/api';
-
 import { IForm } from '../components/form/interfaces';
 
 export interface IRequest {
@@ -52,7 +51,7 @@ const APIDataProvider = ({ children }: IAPIDataProvider) => {
     isError: false
   });
 
-  const calcAverageTime = (status: IResult): number => {
+  const calcAverageTime = useCallback((status: IResult): number => {
     let average: number = 0;
     if (status.qtd > 0) {
       average = status.ms / status.qtd;
@@ -60,7 +59,7 @@ const APIDataProvider = ({ children }: IAPIDataProvider) => {
       average = status.ms / 1;
     }
     return Number(average.toFixed(2));
-  }
+  }, []);
 
   const fetchAPIData = useCallback(async (formFilters: IForm): Promise<void> => {
 
@@ -140,7 +139,7 @@ const APIDataProvider = ({ children }: IAPIDataProvider) => {
       });
 
     }
-  }, []);
+  }, [calcAverageTime]);
 
   const clearQuery = (): void => {
     setAPIData(undefined);

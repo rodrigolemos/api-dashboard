@@ -24,7 +24,6 @@ export const Container = styled.div<IContainer>`
 
 export const StatusBadge = styled.span<IStatusBadge>`
   padding: 3px 11px;
-  font-size: 13px;
   border-radius: 5px;
   color: #FFF;
   font-weight: bold;
@@ -45,6 +44,7 @@ export const DurationBadge = styled.span<IDurationBadge>`
 
   ${({ duration }) => (duration <= 1000) ? css`
     font-weight: normal;
+    padding: 0;
   ` : ((duration > 1000 && duration < 3000) ? css`
     background-color: var(--warning);
     color: #FFF;

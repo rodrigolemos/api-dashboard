@@ -6,3 +6,8 @@ export const MainWrapper = styled.main`
   overflow-y: auto;
   background-color: var(--light);
 `;
+
+export const MainInfo = styled.div`
+  font-size: 30px;
+  color: var(--gray-1);
+`;
