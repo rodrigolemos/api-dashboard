@@ -3,7 +3,7 @@ import { displayFromLeft } from '../../styles/animations';
 
 export const NavWrapper = styled.nav`
   grid-area: nav;
-  padding: 25px;
+  padding: 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -11,7 +11,7 @@ export const NavWrapper = styled.nav`
 `;
 
 export const Card = styled.div`
-  width: 31.8%;
+  width: 49%;
   height: 100%;
   overflow-y: auto;
 
@@ -72,10 +72,6 @@ export const Card = styled.div`
   }
 
   &:nth-child(2) {
-    animation: ${displayFromLeft} .8s;
-  }
-
-  &:nth-child(3) {
-    animation: ${displayFromLeft} 1.2s;
+    animation: ${displayFromLeft} 1s;
   }
 `;

@@ -1,34 +1,13 @@
 import TimelineChart from '../timeline-chart';
 import { NavWrapper, Card } from './styles';
-import { useLogData } from '../../hooks/logs'
-import { useAPIInfo } from '../../hooks/api-info'
+import { useLogData } from '../../hooks/logs';
 
 const Nav = (): React.ReactElement => {
   const { logData, logResult } = useLogData();
-  const { APIInfo } = useAPIInfo();
   return (
     <NavWrapper>
       {logData && (
         <>
-          <Card>
-            <div className="title">
-              <span>Informações da API</span>
-            </div>
-            <div className="content">
-              <div className="card-row">
-                <label>Grupo:</label>
-                <span>{APIInfo?.group}</span>
-              </div>
-              <div className="card-row">
-                <label>Endpoint:</label>
-                <span>{APIInfo?.route}</span>
-              </div>
-              <div className="card-row">
-                <label>Nome:</label>
-                <span>{APIInfo?.name}</span>
-              </div>
-            </div>
-          </Card>
 
           <Card>
             <div className="title">
