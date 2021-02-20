@@ -1,4 +1,5 @@
 import { ILog } from '../hooks/logs';
+import { isBefore } from 'date-fns';
 
 export const mock = (
   api: string,
@@ -43,7 +44,7 @@ export const mock = (
         
         const fakeLogs = [];
 
-        for (let i = 1; i <= 30; i++) {
+        for (let i = 1; i <= 75; i++) {
           const randomHour = getRandomInt(1, 23);
           const randomMinute = getRandomInt(1, 59);
           const randomSecond = getRandomInt(1, 59);
@@ -77,7 +78,12 @@ export const mock = (
           })
         }
 
-        const response = fakeLogs.filter(log => log.route === api);
+        const response = fakeLogs.filter(log => log.route === api).sort((a, b) => {
+          if (isBefore(a.date, b.date)) {
+            return - 1;
+          }
+          return 1;
+        })
 
         localStorage.setItem('api-dashboard', JSON.stringify(response));
 
