@@ -4,68 +4,51 @@ export const mock = (api: string, additionalFilters: string, success: boolean, t
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (success) {
-        resolve([
-          {
-            id: 1,
-            ip: '192.168.1.0',
-            status: 200,
-            route: '/primeira-api',
-            date: new Date(),
-            duration: 152.10,
+        
+        const getRandomInt = (min: number, max: number): number => {
+          min = Math.ceil(min);
+          max = Math.floor(max);
+          return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        const getRandom = (min: number, max: number): number => {
+          return Math.random() * (max - min) + min;
+        }
+
+        const apis = [
+          '/primeira-api',
+          '/segunda-api',
+          '/terceira-api',
+          '/quarta-api',
+          '/quinta-api',
+        ];
+
+        const httpStatus = [200, 200, 400, 500];
+        
+        const fakeLogs = [];
+
+        for (let i = 1; i <= 25; i++) {
+          const randomHour = getRandomInt(1, 23);
+          const randomMinSec = getRandomInt(1, 59);
+          const randomApi = getRandomInt(0, 2);
+          const randomStatus = getRandomInt(0, 4);
+          const randomDuration = getRandom(97.25, 1050.37);
+          
+          fakeLogs.push({
+            id: i,
+            ip: '127.0.0.1:8000',
+            route: apis[randomApi],
+            status: httpStatus[randomStatus],
+            date: new Date(new Date().setHours(randomHour, randomMinSec, randomMinSec)),
+            duration: Number(randomDuration.toFixed(2)),
             requestHeader: {},
             requestBody: {},
             responseHeader: {},
             responseBody: {}
-          },
-          {
-            id: 2,
-            ip: '192.168.1.0',
-            status: 200,
-            route: '/segunda-api',
-            date: new Date(),
-            duration: 1003.10,
-            requestHeader: {},
-            requestBody: {},
-            responseHeader: {},
-            responseBody: {}
-          },
-          {
-            id: 3,
-            ip: '192.168.1.0',
-            status: 200,
-            route: '/terceira-api',
-            date: new Date(),
-            duration: 45.10,
-            requestHeader: {},
-            requestBody: {},
-            responseHeader: {},
-            responseBody: {}
-          },
-          {
-            id: 4,
-            ip: '192.168.1.0',
-            status: 501,
-            route: '/quarta-api',
-            date: new Date(),
-            duration: 92.80,
-            requestHeader: {},
-            requestBody: {},
-            responseHeader: {},
-            responseBody: {}
-          },
-          {
-            id: 5,
-            ip: '192.168.1.0',
-            status: 404,
-            route: '/quarta-api',
-            date: new Date(),
-            duration: 450.10,
-            requestHeader: {},
-            requestBody: {},
-            responseHeader: {},
-            responseBody: {}
-          },
-        ].filter(log => log.route === api))
+          })
+        }
+
+        resolve(fakeLogs.filter(log => log.route === api))
       } else {
         reject({ message: 'Error' });
       }
