@@ -65,7 +65,7 @@ export const mock = (api: string, additionalFilters: string, success: boolean, t
             responseHeader: {},
             responseBody: {}
           },
-        ])
+        ].filter(log => log.route === api))
       } else {
         reject({ message: 'Error' });
       }
