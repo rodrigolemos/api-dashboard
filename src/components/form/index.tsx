@@ -55,7 +55,7 @@ const Form = (): React.ReactElement => {
       prevState.api = selectedOption.value
       return prevState
     })
-    setAPIInfo(apis.filter(api => api.name === selectedOption.value)[0]);
+    setAPIInfo(apis.filter(api => api.route === selectedOption.value)[0]);
     clearQuery();
     clearDetail();
   }

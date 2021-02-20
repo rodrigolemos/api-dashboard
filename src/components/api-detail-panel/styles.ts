@@ -48,7 +48,7 @@ export const Container = styled.div<IContainer>`
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: 15px;
+    padding: 20px;
   }
 `
 
@@ -125,7 +125,7 @@ export const Details = styled.section`
   grid-area: details;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   flex-direction: column;
   overflow-y: scroll;
 `;

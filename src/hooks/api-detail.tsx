@@ -8,8 +8,8 @@ interface IAPIDetail {
 }
 
 interface IAPIDetailQuery {
-  table?: string;
-  seq?: number;
+  api?: string;
+  id?: number;
 }
 interface IAPIDetailContextProvider {
   children: JSX.Element[] | JSX.Element;
@@ -20,23 +20,23 @@ const APIDetailContext = createContext({} as IAPIDetail);
 const APIDetailContextProvider = ({ children }: IAPIDetailContextProvider) => {
   const [show, setShow] = useState<boolean>(false);
   const [detailQuery, setDetailQuery] = useState<IAPIDetailQuery>({
-    table: '',
-    seq: 0
+    api: '',
+    id: 0
   });
 
-  const setShowDetail = (table?: string, seq?: number): void => {
+  const setShowDetail = (api?: string, id?: number): void => {
     setShow(!show);
     setDetailQuery({
-      table,
-      seq
+      api,
+      id
     });
   }
 
   const clearDetail = (): void => {
     setShow(false);
     setDetailQuery({
-      table: '',
-      seq: 0
+      api: '',
+      id: 0
     });
   }
 

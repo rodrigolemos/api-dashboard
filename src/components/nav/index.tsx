@@ -12,7 +12,7 @@ const Nav = (): React.ReactElement => {
         <>
           <Card>
             <div className="title">
-              <span>Informações de Rota</span>
+              <span>Informações da API</span>
             </div>
             <div className="content">
               <div className="card-row">
@@ -55,15 +55,15 @@ const Nav = (): React.ReactElement => {
               <div className="half-column">
                 <div className="content">
                   <div className="card-row">
-                    <label>Média em ms:</label>
+                    <label>Tempo médio:</label>
                     <span>{logResult?.success.ms}</span>
                   </div>
                   <div className="card-row">
-                    <label>Média em ms:</label>
+                    <label>Tempo médio:</label>
                     <span>{logResult?.clientError.ms}</span>
                   </div>
                   <div className="card-row">
-                    <label>Média em ms:</label>
+                    <label>Tempo médio:</label>
                     <span>{logResult?.serverError.ms}</span>
                   </div>
                 </div>

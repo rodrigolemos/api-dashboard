@@ -59,7 +59,7 @@ export default function Table() {
                   <StatusBadge status={log.status}>{log.status || '-'}</StatusBadge>
                 </TableCell>
                 <TableCell align="center">
-                  <DetailBadge><BsSearch onClick={() => setShowDetail(APIInfo?.name, log.id)} /></DetailBadge>
+                  <DetailBadge><BsSearch onClick={() => setShowDetail(APIInfo?.route, log.id)} /></DetailBadge>
                 </TableCell>
               </TableRow>
             ))}

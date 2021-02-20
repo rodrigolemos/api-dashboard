@@ -16,7 +16,7 @@ export default createGlobalStyle`
     --danger: #EF4444;
     --info: #3B82F6;
 
-    --light: #F4F5F7;
+    --light: #F3F4F6;
 
     --semi-gray: #E2E8F0;
     --semi-gray-1: #CBD5E0;
