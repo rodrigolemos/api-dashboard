@@ -12,9 +12,12 @@ export interface ILog {
   ip: string;
   status: number;
   route: string;
-  method: string;
   date: Date;
   duration: number;
+  requestHeader: object;
+  requestBody: object;
+  responseHeader: object;
+  responseBody: object;
 }
 
 interface ILogData {
@@ -72,7 +75,7 @@ const LogDataProvider = ({ children }: ILogDataProvider) => {
       const logs = await mock(
         formFilters.api,
         JSON.stringify(formFilters.additionalFilters),
-        true, 4000
+        true, 3000
       );
 
       setLogData(logs);

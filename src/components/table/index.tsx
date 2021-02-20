@@ -36,7 +36,7 @@ export default function Table() {
             <TableRow>
               <StyledTableCell>Data/Hora</StyledTableCell>
               <StyledTableCell>IP</StyledTableCell>
-              <StyledTableCell>Método</StyledTableCell>
+              <StyledTableCell>API</StyledTableCell>
               <StyledTableCell align="center">Duração (ms)</StyledTableCell>
               <StyledTableCell align="center">Status</StyledTableCell>
               <StyledTableCell align="center"></StyledTableCell>
@@ -51,7 +51,7 @@ export default function Table() {
                 <TableCell>
                   <RouteBadge>{log.ip}</RouteBadge>
                 </TableCell>
-                <TableCell>{log.method}</TableCell>
+                <TableCell>{log.route}</TableCell>
                 <TableCell align="center">
                   <DurationBadge duration={log.duration}>{log.duration}</DurationBadge>
                 </TableCell>
