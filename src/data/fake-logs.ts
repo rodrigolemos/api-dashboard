@@ -1,6 +1,11 @@
 import { ILog } from '../hooks/logs';
 
-export const mock = (api: string, additionalFilters: string, success: boolean, timeout: number, id?: number): Promise<ILog[]> => {
+export const mock = (
+  api: string,
+  additionalFilters: string,
+  success: boolean,
+  timeout: number,
+  id?: number): Promise<ILog[]> => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (success) {

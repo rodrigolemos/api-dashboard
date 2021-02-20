@@ -2,9 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import ReactLoading from 'react-loading';
 import { useAPIInfo } from '../../hooks/api-info'
-import { api } from '../../services/api';
+import { mock } from '../../data/fake-timeline';
 
-interface ITimeline {
+export interface ITimeline {
   series: {
     name: string;
     data: number[];
@@ -57,7 +57,7 @@ const TimelineChart = (): React.ReactElement => {
     },
   });
 
-  const fetchTimeline = useCallback(async (table: string | undefined): Promise<void> => {
+  const fetchTimeline = useCallback(async (api: string | undefined): Promise<void> => {
 
     setRequestStatus({
       isLoading: true,
@@ -66,13 +66,18 @@ const TimelineChart = (): React.ReactElement => {
 
     try {
       
-      if (!table) return;
+      if (!api) return;
 
-      const response = await api.get<ITimeline>(`/logs/forecast?table=${table}`);
+      const timeline = await mock(
+        api,
+        'additionalFilters',
+        true,
+        0
+      );
 
       setChartData((prevState: any) => {
-        prevState.series = [response.data.series];
-        prevState.options.xaxis.categories = response.data.categories;
+        prevState.series = [timeline.series];
+        prevState.options.xaxis.categories = timeline.categories;
         return prevState;
       });
 
@@ -92,16 +97,16 @@ const TimelineChart = (): React.ReactElement => {
   }, []);
 
   useEffect(() => {
-    // fetchTimeline(APIInfo?.name);
-  }, [fetchTimeline, APIInfo?.name]);
+    fetchTimeline(APIInfo?.route);
+  }, [fetchTimeline, APIInfo?.route]);
 
   return (
     <div id="timeline-chart">
-      {/* {!requestStatus.isLoading ? (
+      {!requestStatus.isLoading ? (
         <ReactApexChart options={chartData.options} series={chartData.series} type="area" height={110} />
       ) : (
         <ReactLoading type="spin" color="#2684FF" height="15px" width="15px" />
-      )} */}
+      )}
     </div>
   );
 }

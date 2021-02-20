@@ -43,6 +43,14 @@ interface ILogDataProvider {
   children: JSX.Element[] | JSX.Element;
 }
 
+export interface ITimeline {
+  series: {
+    name: string;
+    data: number[];
+  };
+  categories: number[];
+}
+
 const APILogsContext = createContext({} as ILogData);
 
 const LogDataProvider = ({ children }: ILogDataProvider) => {
