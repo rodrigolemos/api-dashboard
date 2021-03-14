@@ -13,7 +13,7 @@ API Dashboard é uma interface para acompanhamento dos logs de requisições fei
 
 - [React JS](https://reactjs.org/) - Uma biblioteca JavaScript para criar interfaces de usuário;
 - [Styled Components](https://styled-components.com/) – Uma biblioteca popular para uso de CSS-in-JS;
-- [Material UI](https://material-ui.com/) - Biblioteca de componentes React baseada no design Material;
+- [Material UI](https://material-ui.com/) - Biblioteca de componentes React baseada no design Material
 
 ## Autor
 
