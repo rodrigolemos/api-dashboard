@@ -58,7 +58,7 @@ const APIDetailPanel = (): React.ReactElement => {
         detailQuery.api,
         'additionalFilters',
         true,
-        1500,
+        500,
         detailQuery.id
       );
 

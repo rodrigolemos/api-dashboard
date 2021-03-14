@@ -83,7 +83,7 @@ const LogDataProvider = ({ children }: ILogDataProvider) => {
       const logs = await mock(
         formFilters.api,
         JSON.stringify(formFilters.additionalFilters),
-        true, 3000
+        true, 1000
       );
 
       setLogData(logs);

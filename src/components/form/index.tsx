@@ -106,7 +106,7 @@ const Form = (): React.ReactElement => {
 
     try {
 
-      const apis = await mock(true, 2000);
+      const apis = await mock(true, 1000);
 
       const formattedAPIs = apis.map((responseAPI: IAPI) => {
         const { name, route } = responseAPI;
