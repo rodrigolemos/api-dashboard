@@ -2,7 +2,6 @@
 <p>
   <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/rodrigolemos/api-dashboard">
   <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/rodrigolemos/api-dashboard">
-  <img alt="GitHub" src="https://img.shields.io/github/license/rodrigolemos/api-dashboard">
 </p>
 
 ## Sobre
